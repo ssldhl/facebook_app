@@ -7,10 +7,10 @@ class StaticPagesControllerTest < ActionController::TestCase
     assert_select "title", "Lead Chicken Social Spy"
   end
 
-  test "should get about" do
-    get :about
+  test "should get tutorial" do
+    get :tutorial
     assert_response :success
-    assert_select "title", "About | Lead Chicken Social Spy"
+    assert_select "title", "Tutorial | Lead Chicken Social Spy"
   end
 
   test "should get faq" do
