@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
-  devise_for :users
+  resources :subscriptions
+
   root 'static_pages#home'
+
+  devise_for :users, :controllers => { :registrations => "registrations" }
 
   get 'tutorial' => 'static_pages#tutorial'
 

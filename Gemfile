@@ -10,6 +10,7 @@ gem 'jbuilder',             '2.2.3'
 gem 'sdoc',                 '0.4.0', group: :doc
 gem 'bootstrap-sass', '~> 3.3.4.1'
 gem 'devise'
+gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
 
 group :development, :test do
   gem 'sqlite3',     '1.3.9'
