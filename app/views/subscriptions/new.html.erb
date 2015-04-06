@@ -1,56 +1,63 @@
 <div class="container">
-      <div class="row">
-        <div class="col-lg-6">
-          <table>
-            <thead>
-            <tr>
-              <th>
-                Basic Plan
-              </th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-              <td>
-                Limited Access
-              </td>
-              <td>
-                $10.00
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <%=link_to "Subscribe", subscription_path(id:'basic') %>
-              </td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="col-lg-6">
-          <table>
-            <thead>
-            <tr>
-              <th>
-                Premium Plan
-              </th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-              <td>
-                Full Access
-              </td>
-              <td>
-                $20.00
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <%=link_to "Subscribe", subscription_path(id:'premium') %>
-              </td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
+  <div class="row">
+    <div class="page-header">
+      <h1>Subscribe <small>to a plan</small></h1>
+    </div>
+    <div class="col-lg-6">
+      <table class="table">
+        <thead>
+        <tr>
+          <th>
+            Basic Plan
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>
+            Limited Access
+          </td>
+        </tr>
+        <tr>
+          <td>
+            $10.00
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <%=link_to "Subscribe", subscription_path(id:'basic'), class: 'btn btn-success btn-lg' %>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-lg-6">
+      <table class="table">
+        <thead>
+        <tr>
+          <th>
+            Premium Plan
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>
+            Full Access
+          </td>
+        </tr>
+        <tr>
+          <td>
+            $20.00
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <%=link_to "Subscribe", subscription_path(id:'premium'), class: 'btn btn-success btn-lg' %>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>

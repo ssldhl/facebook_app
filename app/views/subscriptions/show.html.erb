@@ -1,20 +1,39 @@
-<%= form_tag subscriptions_path, id:"payment-form" do %>
-    <span class="payment-errors">
-      <noscript>JavaScript is not enabled and is required for this form. First enable it in your web browser settings.</noscript>
-    </span>
-    <div class="field">
-      <%= label_tag :card_number, "Credit Card Number " %>
-      <%= text_field_tag :card_number, nil, name: nil, data:{stripe:'number'} %>
-      <%= hidden_field_tag :plan_type, params[:id] %>
+<div class="container">
+  <div class="row">
+    <div class="page-header">
+      <h1>Fill up the credit card information</h1>
     </div>
-    <div class="field">
-      <%= label_tag :card_code, "Security Code on Card (CVC)" %>
-      <%= number_field_tag :card_code, nil, name: nil, data:{stripe:'cvc'} %>
-    </div>
-    <div class="field">
-      <%= label_tag :card_month, "Card Expiration" %>
-      <%= select_month nil, {add_month_numbers_true: true}, {name: nil, id: "card_month", data:{stripe:'exp-month'}}%>
-      <%= select_year nil, {start_year: Date.today.year, end_year: Date.today.year+15}, {name: nil, id: "card_year", data:{stripe:'exp-year'}}%>
-    </div>
-    <div class="actions"><%= submit_tag "Subscribe" %></div>
-<% end %>
+    <%= form_tag subscriptions_path, id:"payment-form", class:'form-horizontal' do %>
+        <span class="payment-errors">
+          <noscript>JavaScript is not enabled and is required for this form. First enable it in your web browser settings.</noscript>
+        </span>
+        <div class="form-group">
+          <%= label_tag :card_number, "Credit Card Number", class:"col-sm-2 control-label" %>
+          <div class="col-sm-2">
+            <%= text_field_tag :card_number, nil, name: nil, data:{stripe:'number'}, class:"form-control" %>
+          </div>
+          <%= hidden_field_tag :plan_type, params[:id] %>
+        </div>
+        <div class="form-group">
+          <%= label_tag :card_code, "Security Code on Card (CVC)", class:"col-sm-2 control-label" %>
+          <div class="col-sm-2">
+            <%= number_field_tag :card_code, nil, name: nil, data:{stripe:'cvc'}, class: "form-control" %>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= label_tag :card_month, "Card Expiration", class:"col-sm-2 control-label" %>
+          <div class="col-sm-2">
+            <%= select_month nil, {add_month_numbers_true: true}, {name: nil, id: "card_month", data:{stripe:'exp-month'}, class: "form-control"}%>
+          </div>
+          <div class="col-sm-2">
+            <%= select_year nil, {start_year: Date.today.year, end_year: Date.today.year+15}, {name: nil, id: "card_year", data:{stripe:'exp-year'}, class: "form-control"}%>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10">
+            <div class="actions"><%= submit_tag "Subscribe", class:"btn btn-success btn-lg" %></div>
+          </div>
+        </div>
+    <% end %>
+  </div>
+</div>
