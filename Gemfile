@@ -12,6 +12,8 @@ gem 'bootstrap-sass', '~> 3.3.4.1'
 gem 'devise'
 gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
 gem 'jquery-turbolinks'
+gem 'omniauth-facebook'
+gem "koala", "~> 2.0"
 
 group :development, :test do
   gem 'sqlite3',     '1.3.9'
