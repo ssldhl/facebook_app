@@ -1,18 +1,20 @@
-<%= javascript_include_tag 'https://js.stripe.com/v2/'%>
-<%= tag :meta, name: "stripe-key", content: Rails.configuration.stripe[:publishable_key] %>
-<%= form_tag subscriptions_path, id:"new_subscription" do %>
+<%= form_tag subscriptions_path, id:"payment-form" do %>
+    <span class="payment-errors">
+      <noscript>JavaScript is not enabled and is required for this form. First enable it in your web browser settings.</noscript>
+    </span>
     <div class="field">
       <%= label_tag :card_number, "Credit Card Number " %>
-      <%= text_field_tag :card_number, nil, name: nil %>
+      <%= text_field_tag :card_number, nil, name: nil, data:{stripe:'number'} %>
+      <%= hidden_field_tag :plan_type, params[:id] %>
     </div>
     <div class="field">
-      <%= label_tag :card_code, "Security Code on Card (CVV)" %>
-      <%= text_field_tag :card_code, nil, name: nil %>
+      <%= label_tag :card_code, "Security Code on Card (CVC)" %>
+      <%= number_field_tag :card_code, nil, name: nil, data:{stripe:'cvc'} %>
     </div>
     <div class="field">
       <%= label_tag :card_month, "Card Expiration" %>
-      <%= select_month nil, {add_month_numbers_true: true}, {name: nil, id: "card_month"}%>
-      <%= select_year nil, {start_year: Date.today.year, end_year: Date.today.year+15}, {name: nil, id: "card_year"}%>
+      <%= select_month nil, {add_month_numbers_true: true}, {name: nil, id: "card_month", data:{stripe:'exp-month'}}%>
+      <%= select_year nil, {start_year: Date.today.year, end_year: Date.today.year+15}, {name: nil, id: "card_year", data:{stripe:'exp-year'}}%>
     </div>
     <div class="actions"><%= submit_tag "Subscribe" %></div>
 <% end %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150401090706) do
+ActiveRecord::Schema.define(version: 20150406092010) do
 
   create_table "subscriptions", force: :cascade do |t|
     t.string   "stripe_customer_token"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20150401090706) do
     t.integer  "user_id"
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
+    t.string   "description"
   end
 
   add_index "subscriptions", ["user_id"], name: "index_subscriptions_on_user_id"
