@@ -14,6 +14,7 @@ gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
 gem 'jquery-turbolinks'
 gem 'omniauth-facebook'
 gem "koala", "~> 2.0"
+gem 'font-awesome-sass', '~> 4.3.0'
 
 group :development, :test do
   gem 'sqlite3',     '1.3.9'

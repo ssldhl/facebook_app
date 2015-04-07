@@ -1,3 +1,10 @@
 <div class="container">
-  <%=link_to 'Authenticate with facebook to get started', 'auth/facebook' %>
+  <div class="row">
+    <div class="page-header">
+      <h1>Connect <small>with facebook and get started</small></h1>
+    </div>
+    <div class="jumbotron">
+        <%=link_to image_tag('fblogin.png', height:50), 'auth/facebook', class: 'btn btn-lg facebook-btn', role:'button'%>
+    </div>
+  </div>
 </div>
