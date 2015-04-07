@@ -1,16 +1,18 @@
 class Authentication < ActiveRecord::Base
   belongs_to :user
 
-  def self.omniauth(auth)
-    where(auth.slice(:provider, :uid)).first_or_initialize.tap do |user|
-      self.provider = auth.provider
-      self.uid = auth.uid
-      self.name = auth.info.name
-      self.image = auth.info.image
-      self.token = auth.credentials.token
-      self.expires_at = Time.at(auth.credentials.expires_at)
-      self.user_id = current_user.id
-      save!
-    end
+  def omniauth
+    self.provider = provider
+    self.uid = uid
+    self.name = name
+    self.image = image
+    self.token = token
+    self.expires_at = expires_at
+    self.user_id = user_id
+    save!
+    self.id
+  rescue Exception => e
+    logger.error "Facebook error while authenticating: #{e.message}"
+    errors.add :base, 'There was a problem authenticating with facebook.'
   end
 end

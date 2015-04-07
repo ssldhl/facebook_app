@@ -28,9 +28,16 @@ class SubscriptionsController < ApplicationController
         description: current_user.email
     }
 
-    @subscription = Subscription.new(subscription_params)
+    subscribed_user = Subscription.find_by_user_id current_user.id
+
+    if subscribed_user
+      @subscription = subscribed_user
+    else
+      @subscription = Subscription.new(subscription_params)
+    end
+
     if @subscription.save_with_payment
-      redirect_to root_path, :notice => "Thank you for subscribing!"
+      redirect_to auth_facebook_path, :notice => 'Thank you for subscribing!'
     else
       render :new, :alert=> errors[:base]?errors[:base]:nil
     end
