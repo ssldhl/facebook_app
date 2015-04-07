@@ -10,7 +10,7 @@
         <div class="form-group">
           <%= label_tag :card_number, "Credit Card Number", class:"col-sm-2 control-label" %>
           <div class="col-sm-2">
-            <%= text_field_tag :card_number, nil, name: nil, data:{stripe:'number'}, class:"form-control" %>
+            <%= number_field_tag :card_number, nil, name: nil, data:{stripe:'number'}, class:"form-control" %>
           </div>
           <%= hidden_field_tag :plan_type, params[:id] %>
         </div>
