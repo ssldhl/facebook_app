@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
-  helper_method 'subscribed'
+  helper_method 'subscribed', 'authenticated'
 
   def after_sign_in_path_for(resource)
     if Subscription.find_by_user_id resource.id
@@ -27,6 +27,19 @@ class ApplicationController < ActionController::Base
     unless Subscription.find_by_user_id current_user.id
       flash[:alert] = 'Please subscribe to a plan'
       redirect_to new_subscription_path
+    end
+  end
+
+  def authenticated
+    authenticated_user = Authentication.find_by_user_id current_user.id
+    if authenticated_user
+      unless authenticated_user.expires_at > Time.now
+        flash[:notice] = 'Your facebook access has expired'
+        redirect_to auth_facebook_path
+      end
+    else
+      flash[:notice] = 'Please authenticate'
+      redirect_to auth_facebook_path
     end
   end
 

@@ -15,6 +15,7 @@ gem 'jquery-turbolinks'
 gem 'omniauth-facebook'
 gem "koala", "~> 2.0"
 gem 'font-awesome-sass', '~> 4.3.0'
+gem 'mechanize', '~> 2.7.3'
 
 group :development, :test do
   gem 'sqlite3',     '1.3.9'
