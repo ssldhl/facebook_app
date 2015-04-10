@@ -19,6 +19,11 @@ class MainController < ApplicationController
   end
 
   def process_group
+    oauth_access_token = Authentication.find_by_user_id(current_user.id).token
+    profile = Koala::Facebook::API.new(oauth_access_token)
+    members = get_members(params[:group_id], profile)
+    user_names = resolve_user_names(profile,members)
+    render text:'ok'
 =begin
     search_result.each do |result|
         puts '-----------------'
