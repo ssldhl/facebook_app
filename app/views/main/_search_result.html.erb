@@ -1,0 +1,39 @@
+<%= form_tag process_group_path, class:'form-horizontal' do %>
+    <table class="table table-striped fixed-header-table">
+      <thead>
+      <tr>
+        <th>
+          Name
+        </th>
+        <th>
+          Action
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <% if @search_result %>
+          <% @search_result.each do |result| %>
+              <tr>
+                <td>
+                  <%= link_to result['name'], "https://www.facebook.com/#{result['id']}", target:'_blank'%>
+                </td>
+                <td>
+                  <%= check_box_tag  'export_group', result['id'], true %>
+                </td>
+              </tr>
+          <% end %>
+      <% else %>
+          <tr>
+            <td colspan="2">
+              No data available. Please use another search criteria
+            </td>
+          </tr>
+      <%end%>
+      </tbody>
+    </table>
+    <div class="form-group">
+      <div class="col-sm-10">
+        <div class="actions"><%= submit_tag 'Export to CSV', class:"btn btn-success btn-lg" %></div>
+      </div>
+    </div>
+<% end %>

@@ -1,5 +1,6 @@
 class MainController < ApplicationController
   before_action :authenticate_user!, :subscribed, :authenticated
+  include FetchFacebookGroups
 
   def index
   end
@@ -7,23 +8,24 @@ class MainController < ApplicationController
   def search
     oauth_access_token = Authentication.find_by_user_id(current_user.id).token
     profile = Koala::Facebook::API.new(oauth_access_token)
-    begin
-      search_result = profile.graph_call('search?q='+params[:search_criteria]+'&type=group')
-    rescue Exception => e
-      puts e.message
+    @search_result = search_groups(profile, params[:search_criteria])
+    respond_to do |format|
+      if @search_result == 'error'
+        format.js { render 'main/search_error'}
+      else
+        format.js {}
+      end
     end
+  end
 
-    puts "------------------"
-    puts search_result
-    puts "------------------"
-
+  def process_group
 =begin
     search_result.each do |result|
-      puts '-----------------'
-      puts result['id']
-      puts '-----------------'
+        puts '-----------------'
+        puts result['id']
+        puts '-----------------'
     end
-=end
+
 
     begin
       member = profile.graph_call(search_result[0]['id']+'/members')
@@ -58,8 +60,7 @@ class MainController < ApplicationController
     puts "USER NAME === #{user_name}"
 
     puts "USER EMAIL === #{user_name}@facebook.com"
+=end
 
-
-    render text:'ok'
   end
 end

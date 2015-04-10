@@ -1,0 +1,5 @@
+var search_result = $("<%= escape_javascript(render 'main/search_result', params:@search_result)%>");
+var content = $(".content");
+content.html(search_result);
+$(".ajax_indicator").hide();
+content.show();

@@ -196,3 +196,32 @@ body {
   background-color: #f2dede;
   border-color: #ebccd1;
 }
+
+/* Fixed header table */
+.fixed-header-table {
+  width:100%;
+}
+
+.fixed-header-table thead, tbody, tr, td, th { display: block; }
+
+.fixed-header-table tr:after {
+  content: ' ';
+  display: block;
+  visibility: hidden;
+  clear: both;
+}
+
+.fixed-header-table thead th {
+  height: 30px;
+}
+
+.fixed-header-table tbody {
+  height: 300px;
+  overflow-y: auto;
+}
+
+
+.fixed-header-table tbody td, thead th {
+  width: 50%;
+  float: left;
+}

@@ -18,4 +18,5 @@ Rails.application.routes.draw do
 
   get 'app', to:'main#index'
   post 'search', to:'main#search'
+  post 'process_group', to:'main#process_group'
 end
