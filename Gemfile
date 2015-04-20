@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-
+ruby '2.2.1'
 gem 'rails',                '4.2.0'
 gem 'sass-rails',           '5.0.1'
 gem 'uglifier',             '2.5.3'
@@ -16,6 +16,7 @@ gem 'omniauth-facebook'
 gem "koala", "~> 2.0"
 gem 'font-awesome-sass', '~> 4.3.0'
 gem 'mechanize', '~> 2.7.3'
+gem 'puma'
 
 group :development, :test do
   gem 'sqlite3',     '1.3.9'
