@@ -63,19 +63,24 @@ module FetchFacebookGroups
       form = agent.page.forms.first
       form.email = ENV['FACEBOOK_EMAIL']
       form.pass = ENV['FACEBOOK_PASSWORD']
-
       form.submit
-
-      page =  agent.get(unique_user_links[0])
     rescue Exception => e
       logger.error "Mechanize error: #{e.message}"
     end
 
     unique_user_links.each do |user_link|
-      page =  agent.get(user_link)
-      user_email = page.uri.to_s.split('/').last+'@facebook.com'
-      puts user_email
-      user_names << user_email
+      begin
+        page =  agent.get(user_link)
+        page_uri = page.uri.to_s
+        if page_uri.include? '='
+          user_email = page_uri.split('=').last+'@facebook.com'
+        else
+          user_email = page_uri.split('/').last+'@facebook.com'
+        end
+        user_names << user_email
+      rescue Exception => e
+        logger.error "Mechanize visit page error: #{e.message}"
+      end
     end
 
     user_names

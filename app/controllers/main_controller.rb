@@ -18,54 +18,20 @@ class MainController < ApplicationController
     end
   end
 
-  def process_group
+  def user_names
     oauth_access_token = Authentication.find_by_user_id(current_user.id).token
     profile = Koala::Facebook::API.new(oauth_access_token)
     members = get_members(params[:group_id], profile)
     user_names = resolve_user_names(profile,members)
-    render text:'ok'
-=begin
-    search_result.each do |result|
-        puts '-----------------'
-        puts result['id']
-        puts '-----------------'
+    respond_to do |format|
+      format.csv { send_data convert_to_csv(user_names) }
     end
+  end
 
-
-    begin
-      member = profile.graph_call(search_result[0]['id']+'/members')
-    rescue Exception => e
-      puts e.message
+  private
+  def convert_to_csv(user_names)
+    CSV.generate do |csv|
+      csv << user_names
     end
-
-    begin
-      user = profile.get_object(member[0]['id'])
-    rescue Exception => e
-      puts e.message
-    end
-
-    puts "user = #{user}"
-
-    puts "user link = #{user['link']}"
-
-    agent = Mechanize.new
-
-    page = agent.get('https://www.facebook.com/')
-    form = agent.page.forms.first
-
-    form.email = ENV['FACEBOOK_EMAIL']
-    form.pass = ENV['FACEBOOK_PASSWORD']
-
-    form.submit
-
-    page =  agent.get(user['link'])
-
-    user_name =  page.uri.to_s.split('/').last
-
-    puts "USER NAME === #{user_name}"
-
-    puts "USER EMAIL === #{user_name}@facebook.com"
-=end
-
   end
 end
