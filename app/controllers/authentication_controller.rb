@@ -15,13 +15,13 @@ class AuthenticationController < ApplicationController
         expires_at:Time.at(auth.credentials.expires_at),
         user_id: current_user.id
     }
-    returning_user = Authentication.find_by_user_id current_user.id
+    returning_user = Authentication.find_by_user_id(current_user.id)
     if returning_user
-      @authentication = returning_user
+      authentication = returning_user.update_omniauth(authentication_params)
     else
       @authentication = Authentication.new(authentication_params)
+      authentication = @authentication.omniauth
     end
-    authentication = @authentication.omniauth
     if authentication
       redirect_to app_path
       session[:authentication_id] = authentication

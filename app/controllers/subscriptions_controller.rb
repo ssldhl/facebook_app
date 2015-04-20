@@ -28,15 +28,16 @@ class SubscriptionsController < ApplicationController
         description: current_user.email
     }
 
-    subscribed_user = Subscription.find_by_user_id current_user.id
+    subscribed_user = Subscription.find_by_user_id(current_user.id)
 
     if subscribed_user
-      @subscription = subscribed_user
+      saved_subscription = subscribed_user.update_with_payment(subscription_params, subscribed_user.stripe_customer_token)
     else
       @subscription = Subscription.new(subscription_params)
+      saved_subscription = @subscription.save_with_payment
     end
 
-    if @subscription.save_with_payment
+    if saved_subscription
       redirect_to auth_facebook_path, :notice => 'Thank you for subscribing!'
     else
       render :new, :alert=> errors[:base]?errors[:base]:nil
